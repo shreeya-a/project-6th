@@ -68,16 +68,11 @@ public class MainMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-//          GameGUI gameGUI = new GameGUI();
-//            JFrame frame = new JFrame("Car Racing Game");
-//            Game game = new Game();
-//            frame.add(game);
-//            frame.setSize(500, 500);
-//            frame.setVisible(true);
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          GameGUI gameGUI = new GameGUI();
 
-            GameController gameController = new GameController();
-            gameController.runGameLoop();
+
+//            GameController gameController = new GameController(game);
+//            gameController.runGameLoop();
         } else if (e.getSource() == exitButton) {
             int confirmExit = JOptionPane.showConfirmDialog(this, "Do you really want to exit?", "Exit", JOptionPane.YES_NO_OPTION);
             if (confirmExit == JOptionPane.YES_OPTION) {
