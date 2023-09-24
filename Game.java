@@ -46,6 +46,7 @@ public class Game extends JPanel {
         speedOpponent = new int[20]; //integer array used to store the spped value of each opponent vehicle in the game
         isFinished = false; //when false, game is running, when true, game has ended
         score = highScore = 0;  //initialling setting the current score and the highscore to zero
+
     }
 
     //
