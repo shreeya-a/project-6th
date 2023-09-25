@@ -4,8 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class CarRacingGame extends JFrame {
+    String  input = "";
     private JButton startButton;
     //private JButton settingsButton;
     private JButton exitButton;
@@ -35,11 +39,16 @@ public class CarRacingGame extends JFrame {
         startButton.setBackground(Color.black);
         startButton.setForeground(Color.WHITE);
         startButton.setFont(new Font("Verdana", Font.BOLD, 15));
-        startButton.setBounds(400, 100, 200, 50);
+        startButton.setBounds(200, 100, 100, 50);
         startButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if(e.getSource() == startButton){
+//                    String input = "";
+//                    input = JOptionPane.showInputDialog("Player name:");
+//                    if (input == null){
+//                        input = "Player";
+//                    }
                     game();
                 }
             }
@@ -48,7 +57,7 @@ public class CarRacingGame extends JFrame {
         exitButton.setFont(new Font("Verdana", Font.BOLD, 15));
         exitButton.setBackground(Color.red);
         exitButton.setForeground(Color.WHITE);
-        exitButton.setBounds(400, 200, 200, 50);
+        exitButton.setBounds(200, 200, 100, 50);
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -73,19 +82,23 @@ public class CarRacingGame extends JFrame {
     }
     private ImageIcon loadImage(String path) {
         Image image = new ImageIcon("CAR.jpg").getImage();
-        Image scaled = image.getScaledInstance(1000, 500, Image.SCALE_SMOOTH);
+        Image scaled = image.getScaledInstance(500, 500, Image.SCALE_SMOOTH);
         return new ImageIcon(scaled);
     }
 
     public void game(){
+        final String playerName;
+//         String  input = "";
+        input = JOptionPane.showInputDialog("Player name:");
+        playerName = input;
         Thread gameThread = new Thread(()->{
-            Game game = new Game();
+            Game game = new Game(playerName);
             JFrame frame = new JFrame("Car Racing Game");
             frame.add(game);
             frame.setSize(500, 500);
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+            frame.setLocationRelativeTo(null);
 
             GameController gc = new GameController(game);
             gc.runGameLoop();
@@ -93,7 +106,9 @@ public class CarRacingGame extends JFrame {
         gameThread.start();
 
     }
+    public void restartGame(){
 
+    }
 
     public static void main(String[] args) {
         CarRacingGame crg = new CarRacingGame();

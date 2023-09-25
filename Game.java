@@ -4,10 +4,12 @@ import java.awt.image.*;
 import java.net.URL;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLException;
 
 //Instance of the game
 public class Game extends JPanel {
-
+    Game game;
+    String player;
     int crx, cry;    //location of the crossing
     int car_x, car_y;    //x and y location of user's car
     int speedX, speedY;    //the movement values of the user's car
@@ -20,7 +22,9 @@ public class Game extends JPanel {
     boolean isFinished; //boolean that will be used the end the game when a colision occurs
     boolean isUp, isDown, isRight, isLeft;  //boolean values that show when a user clicks the corresponding arrow key
 
-    public Game() {
+
+    public Game(String playerName) {
+        player = playerName;
         crx = cry = -999;   //initialing setting the location of the crossing to (-999,-999)
         //Listener to get input from user when a key is pressed and released
         addKeyListener(new KeyListener() {
@@ -149,7 +153,19 @@ public class Game extends JPanel {
                 if (car_x + 87 >= lx[i] && !(car_x >= lx[i] + 87)) {  //and if the cars collide horizontally
                     System.out.println("My car : " + car_x + ", " + car_y);
                     System.out.println("Colliding car : " + lx[i] + ", " + ly[i]);
-                    this.finish(); //end game and print end message
+                    //database
+                    DB db;
+                    try {
+                        db = new DB(player, score);
+                       highScore = db.Highscore();
+                        this.finish(); //end game and print end message
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
                 }
             }
         }
@@ -160,10 +176,34 @@ public class Game extends JPanel {
         String str = "";    //create empty string that will be used for a congratulations method
         isFinished = true;  //indicates that game has finished to the rest of the program
         this.repaint();     //tells the window manager that the component has to be redrawn
+        int choice;
         if (score == highScore && score != 0) //if the user scores a new high score, or the same high score
+        {
             str = "\nCongratulations!!! Its a high score";  //create a congratulations message
-        JOptionPane.showMessageDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION);    //displays the congratulations message and a message saying game over and the users score and the high score
-        System.exit(ABORT); //terminate game
+            choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    new String[]{"Play Again", "Quit"},
+                    "Play Again"
+            );    //displays the congratulations message and a message saying game over and the users score and the high score
+        } else {
+            choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    new String[]{"Play Again", "Quit"},
+                    "Play Again");    //displays the congratulations message and a message saying game over and the users score and the high score
+        }
+
+        if (choice == JOptionPane.YES_OPTION) {
+//            if(this.game != null) {
+
+//                GameController gc = new GameController(game);
+//                gc.runGameLoop();
+//            }
+        }
+        if (choice == JOptionPane.NO_OPTION) {
+            System.exit(0);
+        }
+//        System.exit(ABORT); //terminate game
     }
 
     //
@@ -206,50 +246,4 @@ public class Game extends JPanel {
         }
     }
 }
-//
-//    //main method where the java application begins processing
-//    public static void main(String args[]){
-//        JFrame frame = new JFrame("Car Racing Game");   //creating a new JFrame window to display the game
-//        Game game = new Game(); //creating a new instance of a Game
-//        frame.add(game);		//Graphics2D components are added to JFrame Window
-//        frame.setSize(500,500); //setting size of screen to 500x500
-//        frame.setVisible(true); //allows the JFrame and its children to displayed on the screen
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        int count = 1, c = 1;
-//        while(true){
-//            game.moveRoad(count);   //move the road
-//            while(c <= 1){
-//                game.repaint();     //redraw road to match new locations
-//                try{
-//                    Thread.sleep(5);    //wait so that the road appears to be moving continously
-//                }
-//                catch(Exception e){
-//                    System.out.println(e);
-//                }
-//                c++;
-//            }
-//            c = 1;
-//            count++; //increment count value
-//            if(game.nOpponent < 4 && count % 200 == 0){ //if there is less than 4 cars and count timer reaches 200
-//                game.imageLoc[game.nOpponent] = "images/car_left_"+((int)((Math.random()*100)%3)+1)+".png"; //assign images to the opponent cars
-//                game.lx[game.nOpponent] = 499; //set opponent cars start positions
-//                int p = (int)(Math.random()*100)%4; //create a random number that is the remainder of a number between 0 and 100 is divided by 4.
-//                if(p == 0){     //if the remainder is 0
-//                    p = 250;    //place the car in the fourth lane
-//                }
-//                else if(p == 1){ //if the remainder is 1
-//                    p = 300;    //place the car in the second lane
-//                }
-//                else if(p == 2){ //if the remainder is 2
-//                    p = 185;    //place the car in the third lane
-//                }
-//                else{           //otherwise
-//                    p = 130;    //place the car in the fourth  lane
-//                }
-//                game.ly[game.nOpponent] = p; //assign lane position to car
-//                game.speedOpponent[game.nOpponent] = (int)(Math.random()*100)%2 + 2; //sets the speed of the new opponent car to a random number that is the remainder of a number between 0 and 100, plus 2
-//                game.nOpponent++; //add the car to the game
-//            }
-//        }
-//    }
-//}
+
