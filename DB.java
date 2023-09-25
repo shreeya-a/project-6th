@@ -5,7 +5,7 @@ public class DB {
     int highscore;
     DB(String playerName , int score) throws ClassNotFoundException, SQLException {
 
-        if (playerName.isEmpty()){
+        if (playerName == null){
             playerName = "Player";
         }
 

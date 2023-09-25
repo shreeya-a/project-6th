@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 //Instance of the game
 public class Game extends JPanel {
+    Game game;
     String player;
     int crx, cry;    //location of the crossing
     int car_x, car_y;    //x and y location of user's car
@@ -156,13 +157,15 @@ public class Game extends JPanel {
                     DB db;
                     try {
                         db = new DB(player, score);
-                      highScore =  db.Highscore();
+                       highScore = db.Highscore();
                         this.finish(); //end game and print end message
                     } catch (ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
+
+
                 }
             }
         }
@@ -173,10 +176,34 @@ public class Game extends JPanel {
         String str = "";    //create empty string that will be used for a congratulations method
         isFinished = true;  //indicates that game has finished to the rest of the program
         this.repaint();     //tells the window manager that the component has to be redrawn
+        int choice;
         if (score == highScore && score != 0) //if the user scores a new high score, or the same high score
+        {
             str = "\nCongratulations!!! Its a high score";  //create a congratulations message
-        JOptionPane.showMessageDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION);    //displays the congratulations message and a message saying game over and the users score and the high score
-        System.exit(ABORT); //terminate game
+            choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    new String[]{"Play Again", "Quit"},
+                    "Play Again"
+            );    //displays the congratulations message and a message saying game over and the users score and the high score
+        } else {
+            choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    new String[]{"Play Again", "Quit"},
+                    "Play Again");    //displays the congratulations message and a message saying game over and the users score and the high score
+        }
+
+        if (choice == JOptionPane.YES_OPTION) {
+//            if(this.game != null) {
+
+//                GameController gc = new GameController(game);
+//                gc.runGameLoop();
+//            }
+        }
+        if (choice == JOptionPane.NO_OPTION) {
+            System.exit(0);
+        }
+//        System.exit(ABORT); //terminate game
     }
 
     //

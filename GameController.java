@@ -3,13 +3,15 @@ public class GameController {
     private int count = 1;
     private int c = 1;
 
+
     public GameController(Game game) {
         this.game = game;
     }
 
     public void runGameLoop() {
         while (true) {
-            game.moveRoad(count);
+
+                game.moveRoad(count);
 
             while (c <= 1) {
                 game.repaint();

@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class CarRacingGame extends JFrame {
+    String  input = "";
     private JButton startButton;
     //private JButton settingsButton;
     private JButton exitButton;
@@ -87,7 +88,7 @@ public class CarRacingGame extends JFrame {
 
     public void game(){
         final String playerName;
-         String  input = "";
+//         String  input = "";
         input = JOptionPane.showInputDialog("Player name:");
         playerName = input;
         Thread gameThread = new Thread(()->{
@@ -97,7 +98,7 @@ public class CarRacingGame extends JFrame {
             frame.setSize(500, 500);
             frame.setVisible(true);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+            frame.setLocationRelativeTo(null);
 
             GameController gc = new GameController(game);
             gc.runGameLoop();
@@ -105,22 +106,11 @@ public class CarRacingGame extends JFrame {
         gameThread.start();
 
     }
+    public void restartGame(){
 
+    }
 
     public static void main(String[] args) {
-//        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//        } catch (ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
-//        String url ="jdbc:mysql://localhost:3307/cargame";
-////        connect to database
-//        try {
-//            Connection conn = DriverManager.getConnection(url,"root","root");
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        System.out.println("connection success");
         CarRacingGame crg = new CarRacingGame();
     }
 }
