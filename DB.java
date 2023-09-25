@@ -2,6 +2,7 @@ import java.sql.*;
 
 public class DB {
 
+    int highscore;
     DB(String playerName , int score) throws ClassNotFoundException, SQLException {
 
         if (playerName.isEmpty()){
@@ -24,17 +25,20 @@ public class DB {
 //        statement.executeUpdate("DELETE from player where score=0");
 
 
-        ResultSet highscore = statement.executeQuery("SELECT * from player where score = (SELECT max(score) from player)");
-
-//        ResultSet resultSet = statement.executeQuery("SELECT * from player where id =0");
-        while (highscore.next()) {
-            System.out.print(highscore.getInt("score") + " ");
-
+        ResultSet resultSet = statement.executeQuery(" (SELECT max(score) as highscore from player)");
+        while (resultSet.next()) {
+            highscore = resultSet.getInt("highscore");
         }
 
 
 
     }
+    public int Highscore() {
+        System.out.println(highscore);
+        return this.highscore;
+
+    }
+
 
 
 }

@@ -153,16 +153,16 @@ public class Game extends JPanel {
                     System.out.println("My car : " + car_x + ", " + car_y);
                     System.out.println("Colliding car : " + lx[i] + ", " + ly[i]);
                     //database
+                    DB db;
                     try {
-                        DB db = new DB(player,score);
-
+                        db = new DB(player, score);
+                      highScore =  db.Highscore();
+                        this.finish(); //end game and print end message
                     } catch (ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
-
-                    this.finish(); //end game and print end message
                 }
             }
         }
