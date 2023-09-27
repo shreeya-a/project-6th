@@ -1,15 +1,17 @@
 import java.awt.*;
 import javax.swing.*;
-import java.awt.image.*;
-import java.net.URL;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 //Instance of the game
 public class Game extends JPanel {
-    Game game;
     String player;
+    CarRacingGame carRacingGame;
+
+    JOptionPane option = new JOptionPane();
+
     int crx, cry;    //location of the crossing
     int car_x, car_y;    //x and y location of user's car
     int speedX, speedY;    //the movement values of the user's car
@@ -180,34 +182,47 @@ public class Game extends JPanel {
         if (score == highScore && score != 0) //if the user scores a new high score, or the same high score
         {
             str = "\nCongratulations!!! Its a high score";  //create a congratulations message
-            choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION,
+
+//            JOptionPane optn = new JOptionPane();
+            choice = option.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION,
+//            choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,
                     null,
                     new String[]{"Play Again", "Quit"},
                     "Play Again"
             );    //displays the congratulations message and a message saying game over and the users score and the high score
         } else {
-            choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION,JOptionPane.INFORMATION_MESSAGE,
+            choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null,
                     new String[]{"Play Again", "Quit"},
                     "Play Again");    //displays the congratulations message and a message saying game over and the users score and the high score
         }
 
         if (choice == JOptionPane.YES_OPTION) {
-//            if(this.game != null) {
+            CarRacingGame cg = new CarRacingGame();
+            cg.restartGame();
 
-//                GameController gc = new GameController(game);
-//                gc.runGameLoop();
-//            }
+
         }
+
+//        if (choice == JOptionPane.YES_OPTION) {
+//            CarRacingGame cg = new CarRacingGame();
+//            int closedOption = 0;
+//                     if (closedOption == 0){
+//                        option.setVisible(false);
+//                        cg.restartGame(player, option); // Restart the game with the same player name
+//
+//                    }
+//            cg.restartGame(player, option); // Restart the game with the same player name
+//        }
         if (choice == JOptionPane.NO_OPTION) {
             System.exit(0);
         }
 //        System.exit(ABORT); //terminate game
+
     }
 
-    //
-//
+
 //    //function that handles input by user to move the user's car up, left, down and right
     public void moveCar(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_UP) {   //if user clicks on the up arrow key
