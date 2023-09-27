@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="car-racing-game:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/car_racing_game_jar</output-path>
+    <root id="archive" name="car-racing-game.jar">
+      <element id="module-output" name="car-racing-game" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../mysql-connector-j-8.0.33/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

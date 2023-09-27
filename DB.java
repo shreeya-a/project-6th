@@ -19,11 +19,11 @@ public class DB {
 
 //        insert data to database
         Statement statement = conn.createStatement();
-
-        int enterSet = statement.executeUpdate("INSERT INTO player (player, score) values ('"+playerName+"', '"+score+"')");
+        if (score !=0){
+            int enterSet = statement.executeUpdate("INSERT INTO player (player, score) values ('" + playerName + "', '" + score + "')");
 //        statement.executeUpdate("UPDATE player set score= '"+score+"' where player = '"+playerName+"'");
 //        statement.executeUpdate("DELETE from player where score=0");
-
+        }
 
         ResultSet resultSet = statement.executeQuery(" (SELECT max(score) as highscore from player)");
         while (resultSet.next()) {
