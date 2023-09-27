@@ -194,7 +194,7 @@ public class Game extends JPanel {
         } else {
             choice = JOptionPane.showOptionDialog(this, "Game Over!!!\nYour Score : " + score + "\nHigh Score : " + highScore + str, "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE,
                     null,
-                    new String[]{"Play Again", "Quit"},
+                    new String[]{"Main Menu", "Quit"},
                     "Play Again");    //displays the congratulations message and a message saying game over and the users score and the high score
         }
 
