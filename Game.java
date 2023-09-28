@@ -18,11 +18,11 @@ public class Game extends JPanel {
     int nOpponent;      //the number of opponent vehicles in the game
     String imageLoc[]; //array used to store oponnent car images
     int lx[], ly[];  //integer arrays used to store the x and y values of the oncoming vehicles
-    int score;      //intger variable used to store the current score of the player
-    int highScore;  //integer variable used to store the high score of the player
-    int speedOpponent[]; //integer array used to store the spped value of each opponent vehicle in the game
-    boolean isFinished; //boolean that will be used the end the game when a colision occurs
-    boolean isUp, isDown, isRight, isLeft;  //boolean values that show when a user clicks the corresponding arrow key
+    int score;      // store the current score of the player
+    int highScore;  // store the high score of the player
+    int speedOpponent[]; // store the speed value of each opponent vehicle in the game
+    boolean isFinished; // end the game when a colision occurs
+    boolean isUp, isDown, isRight, isLeft;
 
 
     public Game(String playerName) {
@@ -205,20 +205,10 @@ public class Game extends JPanel {
 
         }
 
-//        if (choice == JOptionPane.YES_OPTION) {
-//            CarRacingGame cg = new CarRacingGame();
-//            int closedOption = 0;
-//                     if (closedOption == 0){
-//                        option.setVisible(false);
-//                        cg.restartGame(player, option); // Restart the game with the same player name
-//
-//                    }
-//            cg.restartGame(player, option); // Restart the game with the same player name
 //        }
         if (choice == JOptionPane.NO_OPTION) {
             System.exit(0);
         }
-//        System.exit(ABORT); //terminate game
 
     }
 
