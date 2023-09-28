@@ -37,15 +37,15 @@
 import java.sql.*;
 
 public class DB {
-    String name = "Player";
     int highscore;
 
     DB(String playerName, int score) throws ClassNotFoundException, SQLException {
 
 
         if (playerName == null) {
-            playerName = name;
+            playerName = "Player";
         }
+
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3307/cargame";
@@ -58,7 +58,7 @@ public class DB {
 //        insert data to database
         Statement statement = conn.createStatement();
         if (score != 0) {
-            int enterSet = statement.executeUpdate("INSERT INTO player (player, score) values ('" + playerName + "', '" + score + "')");
+            int enterSet = statement.executeUpdate("INSERT INTO player (player, score) values ('" +playerName+ "', '" + score + "')");
 //        statement.executeUpdate("UPDATE player set score= '"+score+"' where player = '"+playerName+"'");
 //        statement.executeUpdate("DELETE from player where score=0");
         }

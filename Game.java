@@ -8,8 +8,6 @@ import java.sql.SQLException;
 //Instance of the game
 public class Game extends JPanel {
     String player;
-    CarRacingGame carRacingGame;
-
     JOptionPane option = new JOptionPane();
 
     int crx, cry;    //location of the crossing
@@ -27,6 +25,7 @@ public class Game extends JPanel {
 
     public Game(String playerName) {
         player = playerName;
+        System.out.println("player");
         crx = cry = -999;   //initialing setting the location of the crossing to (-999,-999)
         //Listener to get input from user when a key is pressed and released
         addKeyListener(new KeyListener() {

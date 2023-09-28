@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 public class CarRacingGame extends JFrame {
     JFrame frame1 = null;
     JFrame frame;
-    String input = "";
+    String input;
 
     private JButton startButton;
     //private JButton settingsButton;
@@ -102,6 +102,9 @@ public class CarRacingGame extends JFrame {
     public void game() {
         final String playerName;
         input = JOptionPane.showInputDialog("Player name:");
+        if (input == null || input.isEmpty()){
+            input = "Player";
+        }
         playerName = input;
         Thread gameThread = new Thread(() -> {
             Game game = new Game(playerName);
